@@ -10,17 +10,21 @@ async function processCalorieInput() {
         crlfDelay: Infinity
     })
 
-    let max =0; let sum = 0
+    let max = [0,0,0]; let sum = 0
 
-    for await(let line of readlineInterface) {
-        line = parseInt(line)
-        if(!line) {
-            max = Math.max(sum, max)
+    for await(let num of readlineInterface) {
+        num = parseInt(num)
+        if(!num) {
+            max[2] = Math.max(sum, max[2])
+            max.sort((a, b) =>  b - a)
             sum = 0;
         }else {
-            sum += parseInt(line)
+            sum += parseInt(num)
         }
     }
+
+    max[2] = Math.max(sum, max[2])
+    max.sort((a, b) =>  b - a)
 
     return max;
 
