@@ -29,9 +29,14 @@ function getPriority(s) {
     }else{
         priority = s.charCodeAt(0) - 65 + 27
     }
-    console.log(s, s.charCodeAt(0), priority)
+    //console.log(s, s.charCodeAt(0), priority)
 
     return priority
+}
+
+function getTriplicate(a, b, c) {
+    const dups = getDuplicates(a.split(''), b.split(''))
+    return getDuplicates(dups, c.split(''))[0]
 }
 
 async function processPriorites() {
@@ -43,14 +48,24 @@ async function processPriorites() {
     let rucksack = []
     let dups = []
     let sum = 0
+    let inputLines = 3
+    let group = []
 
     for await (let line of readLineInterface) {
-        rucksack = splitRucksack(line)
-        dups = getDuplicates(rucksack[0], rucksack[1])
-        dups.forEach(dup => {
-            console.log(dup)
-            sum += getPriority(dup)
-        })
+        // rucksack = splitRucksack(line)
+        // dups = getDuplicates(rucksack[0], rucksack[1])
+        // dups.forEach(dup => {
+        //     console.log(dup)
+        //     sum += getPriority(dup)
+        // })
+        group[inputLines - 1] = line
+        if(inputLines === 1) {
+            //console.log(group)
+            sum += getPriority(getTriplicate(group[0], group[1], group[2]))
+            inputLines = 3
+        }else{
+            inputLines--
+        }
     }
 
     return sum
