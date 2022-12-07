@@ -32,4 +32,5 @@ async function processCalorieInput() {
 
 processCalorieInput().then((val) => {
     console.log(val)
+    console.log(val.reduce((a, b) => a+b, 0))
 })
