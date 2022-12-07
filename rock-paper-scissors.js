@@ -18,6 +18,31 @@ function decrypt(x) {
     }
 }
 
+
+function decryptV2(x, y) {
+    // X means you need to lose,
+    // Y means you need to end the round in a draw,
+    // and Z means you need to win. Good luck!"
+    
+    switch (y) {
+        case "X":
+            if(x === "A") return "C"
+            if(x === "B") return "A"
+            if(x === "C") return "B"
+            break;
+        case "Y":
+            return x
+            break;
+        case "Z":
+            if(x === "A") return "B"
+            if(x === "B") return "C"
+            if(x === "C") return "A"
+            break;
+        default:
+            break;
+    }
+}
+
 function checkDraw(x, y) {
     return x === y
 }
@@ -63,7 +88,7 @@ async function scoreGame() {
 
     for await (let line of readInterface) {
         line = line.split(" ")
-        line[1] = decrypt(line[1])
+        line[1] = decryptV2(line[0], line[1])
         sum += scoreChoice(line[1]) + scoreMatch(line[0], line[1])
     }
 
