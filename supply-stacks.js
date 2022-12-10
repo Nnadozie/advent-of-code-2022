@@ -30,8 +30,12 @@ function parseMove(line) {
 }
 
 function move({num, from, to}) {
+    const intermediate = []
     for(let i = 0; i < num; i++) {
-        stacks[to].push(stacks[from].pop())
+        intermediate.push(stacks[from].pop())
+    }
+    for(let i = 0; i < num; i++) {
+        stacks[to].push(intermediate.pop())
     }
 }
 
